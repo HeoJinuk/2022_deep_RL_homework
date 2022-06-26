@@ -6,11 +6,11 @@
 
 ## 1.1 학습을 진행한 환경 (Atari)
 
-- Pong
-- SpaceInvaders
-- KungFuMaster
-- MsPacman
-- Kangaroo
+- Pong-v5
+- SpaceInvaders-v5
+- KungFuMaster-v5
+- MsPacman-v5
+- Kangaroo-v5
 
 ## 1.2 네트워크 구성
 
