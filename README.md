@@ -4,7 +4,7 @@
 
 ## A3C
 
-### 학습을 진행한 환경 (Atari)
+## 1.1 학습을 진행한 환경 (Atari)
 
 - Pong
 - SpaceInvaders
@@ -35,7 +35,14 @@
 ## 2.2 Input 처리
 
 1. 4 프레임을 쌓아서 하나의 입력으로 변환
+    - 입력 형상 : (84, 84, 4)
 
 # 3. action 설정
+
+- Pong : 6가지
+- SpaceInvaders : 6가지
+- KungFuMaster : 14가지
+- MsPacman : 9가지
+- Kangaroo : 18가지
 
 ## 4. 스코어 비교그래프
