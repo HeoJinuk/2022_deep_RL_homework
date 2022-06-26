@@ -46,3 +46,6 @@
 - Kangaroo : 18가지
 
 ## 4. 스코어 비교그래프
+
+- 학습 결과를 TensorBoard로 기록하였다.
+- tensorboard --logdir ./summary/ALE 
