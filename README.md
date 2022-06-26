@@ -14,7 +14,7 @@
 
 ## 1.2 네트워크 구성
 
-![image.png](attachment:image.png)
+![model.png](attachment:model.png)
 
 ## 1.3 하이퍼파라미터
 
