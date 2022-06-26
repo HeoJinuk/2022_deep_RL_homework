@@ -41,18 +41,20 @@ class ActorCritic(tf.keras.Model):
 # A3CAgent 클래스 (글로벌신경망)
 class A3CAgent():
     def __init__(self, action_size, env_name, 
-                 discount_factor=0.99, no_op_steps=30, 
+                 discount_factor=0.99, 
                  t_max=20, lr=1e-4, threads=4, 
                  num_episode=8000000):
         self.env_name = env_name
+
         # 상태와 행동의 크기 정의
         self.state_size = (84, 84, 4)
         self.action_size = action_size
+
         # A3C 하이퍼파라미터
         self.discount_factor = discount_factor
-        self.no_op_steps = no_op_steps
         self.t_max = t_max
         self.lr = lr
+
         # 쓰레드의 갯수
         self.threads = threads
         self.num_episode = num_episode
@@ -112,7 +114,7 @@ class Runner(threading.Thread):
                  optimizer, discount_factor, t_max, num_episode, env_name, writer):
         threading.Thread.__init__(self)
 
-        # A3CAgent 클래스에서 넘겨준 하이준 파라미터 설정
+        # A3CAgent 클래스에서 넘겨준 하이퍼 파라미터 설정
         self.action_size = action_size
         self.state_size = state_size
         self.global_model = global_model
@@ -130,11 +132,10 @@ class Runner(threading.Thread):
         # 학습 정보를 기록할 변수
         self.avg_p_max = 0
         self.avg_loss = 0
+
         # k-타임스텝 값 설정
         self.t_max = t_max
         self.t = 0
-        # 불필요한 행동을 줄여주기 위한 dictionary
-        # self.action_dict = {0:1, 1:2, 2:3, 3:3, 4:4, 5:5}
 
     # 텐서보드에 학습 정보를 기록
     def draw_tensorboard(self, score, step, e):
@@ -243,7 +244,7 @@ class Runner(threading.Thread):
 
             # 랜덤으로 뽑힌 값 만큼의 프레임동안 움직이지 않음
             for _ in range(random.randint(1, 30)):
-                observe, _, _, _ = self.env.step(1)
+                observe, _, _, _ = self.env.step(0)
 
             # 프레임을 전처리 한 후 4개의 상태를 쌓아서 입력값으로 사용.
             state = pre_processing(observe)
@@ -256,15 +257,12 @@ class Runner(threading.Thread):
 
                 # 정책 확률에 따라 행동을 선택
                 action, policy = self.get_action(history)
-                # 1: 정지, 2: 왼쪽, 3: 오른쪽
-                real_action = action
-                # real_action = self.action_dict[action]
-                # 죽었을 때 시작하기 위해 발사 행동을 함
+
                 if dead:
-                    action, real_action, dead = 0, 1, False
+                    action, dead = 1, False
 
                 # 선택한 행동으로 환경에서 한 타임스텝 진행
-                observe, reward, done, info = self.env.step(real_action)
+                observe, reward, done, info = self.env.step(action)
 
                 # 각 타임스텝마다 상태 전처리
                 next_state = pre_processing(observe)

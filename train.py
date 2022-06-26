@@ -25,7 +25,7 @@ if __name__ == "__main__":
     env = gym.make(args.env_name)
     action_size = env.action_space.n
     global_agent = A3CAgent(action_size=action_size, env_name=args.env_name,
-                            discount_factor=args.gamma, no_op_steps=30,
+                            discount_factor=args.gamma, 
                             t_max=args.num_steps, lr=args.lr, threads=args.num_processes,
                             num_episode=args.max_episode_length)
     global_agent.train()
