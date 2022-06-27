@@ -16,8 +16,8 @@ parser.add_argument('--num-steps', type=int, default=20, metavar='NS',
                     help='number of forward steps in A3C (default: 20)')
 parser.add_argument('--max-episode-length', type=int, default=10000, metavar='M',
                     help='maximum length of an episode (default: 10000)')
-parser.add_argument('--env-name', default='BreakoutDeterministic-v4', metavar='ENV',
-                    help='environment to train on (default: BreakoutDeterministic-v4)')
+parser.add_argument('--env-name', default='ALE/Pong-v5', metavar='ENV',
+                    help='environment to train on (default: ALE/Pong-v5)')
 
 if __name__ == "__main__":
     args = parser.parse_args()
